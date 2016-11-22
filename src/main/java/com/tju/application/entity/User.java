@@ -17,7 +17,12 @@ public class User {
 	private String password;
 	private String name;
 	private String email;
-
+	private String sex;
+	private String birthday;
+	private String phone;
+	private String entry_date;
+	private String position;
+	
 	protected User() {
 	}
 
@@ -65,6 +70,46 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEntry_date() {
+		return entry_date;
+	}
+
+	public void setEntry_date(String entry_date) {
+		this.entry_date = entry_date;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
 	}
 	
 	@Override
