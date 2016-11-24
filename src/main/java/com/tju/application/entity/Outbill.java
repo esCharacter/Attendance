@@ -30,7 +30,7 @@ public class Outbill {
 	private String describe;
 	
 	@Column(name = "state")
-	private String state;
+	private int state;
 	
 	public Outbill(){
 		
@@ -41,6 +41,7 @@ public class Outbill {
 		this.application_time = application_time;
 		this.out_time = out_time;
 		this.num_of_hours = num_of_hours;
+		this.state = 0;
 	}
 	
 	public Long getId(){
@@ -78,16 +79,16 @@ public class Outbill {
 		this.describe = describe;
 	}
 	
-	public String getState(){
+	public int getState(){
 		return state;
 	}
-	public void setState(String state){
+	public void setState(int state){
 		this.state = state;
 	}
 	
 	@Override
 	public String toString() {
-		return "Leave [id=" + id + ", applicationTime=" + application_time + ", out_time=" + out_time + ", numOfHours="
+		return "Out [id=" + id + ", applicationTime=" + application_time + ", out_time=" + out_time + ", numOfHours="
 				+ num_of_hours + ", describe=" + describe + ", state=" + state + "]";
 	}
 }
