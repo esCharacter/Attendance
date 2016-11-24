@@ -27,9 +27,9 @@ public class LeaveController {
 	 * @param numDay
 	 * @return
 	 */
-	@RequestMapping("/userLeaveNum")
+	@RequestMapping("/leavebill/leaveNumDay")
 	@ResponseBody
-	public List<Leavebill> findByNumDayLeave(@RequestParam(value = "numDay", defaultValue = "1") int numDay) {
+	public List<Leavebill> findByNumDayLeave(@RequestParam(value = "leaveNumDay", defaultValue = "1") int numDay) {
 
 		List<Leavebill> leave = leaveDao.findByNumDay(numDay);
 
@@ -40,7 +40,7 @@ public class LeaveController {
 		return leave;
 	}
 
-	@RequestMapping("/leaveType")
+	@RequestMapping("/leavebill/leaveType")
 	@ResponseBody
 	public List<Leavebill> findByType(@RequestParam(value = "type", defaultValue = "1") String type) {
 
@@ -58,7 +58,7 @@ public class LeaveController {
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping("/leave/today")
+	@RequestMapping("/leavebill/today")
 	@ResponseBody
 	public List<User> findUserByToday() throws ParseException {
 
@@ -79,7 +79,7 @@ public class LeaveController {
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping("/leave/date")
+	@RequestMapping("/leavebill/date")
 	@ResponseBody
 	public List<User> findUserByDate(@RequestParam(value = "date", defaultValue = "") String date) {
 
