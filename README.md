@@ -18,5 +18,5 @@
 
 ### URI命名：
   1. 尽量使用名词；
-  2. 使用驼峰命名法，如：根据请假天数,查询请假信息,/leavebill/leaveNumDay;
+  2. 路径内使用驼峰命名法，如：根据请假天数,查询请假信息,/leavebill/leaveNumDay;
   3. 传递变量使用驼峰命名，如：请假天数，/leavebill/leaveNumDay？leaveNumDay=1；
