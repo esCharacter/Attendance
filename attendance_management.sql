@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2016-11-23 15:57:08
+Date: 2016-11-24 14:27:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -109,3 +109,7 @@ CREATE TABLE `user_leave` (
 -- ----------------------------
 -- Records of user_leave
 -- ----------------------------
+INSERT INTO `user_leave` VALUES ('1', '1');
+INSERT INTO `user_leave` VALUES ('1', '3');
+INSERT INTO `user_leave` VALUES ('1', '4');
+INSERT INTO `user_leave` VALUES ('2', '5');

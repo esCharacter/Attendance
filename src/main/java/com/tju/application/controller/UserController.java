@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +18,12 @@ public class UserController {
 	@Resource
 	private UserDao userDao;
 
-	@RequestMapping("/get-by-userName")
+	@RequestMapping("/user/login")
 	@ResponseBody
-	public User findByUserName(String userName) {
+	public User login(@RequestParam(value = "userName", defaultValue = "") String userName,
+			@RequestParam(value = "password", defaultValue = "") String password) {
 
-		User user = userDao.findByUserName(userName);
+		User user = userDao.findLogin(userName, password);
 
 		if (user != null) {
 			return user;
@@ -30,16 +32,15 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping("/name")
+	@RequestMapping("/user/name")
 	@ResponseBody
-	public List<User> findByName(String name) {
+	public List<User> findByName(@RequestParam(value = "name", defaultValue = "")String name) {
 
 		List<User> user = userDao.findByName(name);
 
 		if (user != null) {
 			return user;
 		}
-
 		return user;
 	}
 }

@@ -1,5 +1,6 @@
 package com.tju.application.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(name = "user_name")
 	private String userName;
 	private String password;
 	private String name;
@@ -20,7 +22,8 @@ public class User {
 	private String sex;
 	private String birthday;
 	private String phone;
-	private String entry_date;
+	@Column(name = "entry_date")
+	private String entryDate;
 	private String position;
 	
 	protected User() {
@@ -97,11 +100,11 @@ public class User {
 	}
 
 	public String getEntry_date() {
-		return entry_date;
+		return entryDate;
 	}
 
 	public void setEntry_date(String entry_date) {
-		this.entry_date = entry_date;
+		this.entryDate = entry_date;
 	}
 
 	public String getPosition() {

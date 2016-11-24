@@ -1,5 +1,8 @@
 package com.tju.application.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,17 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tju.application.dao.LeaveDao;
 import com.tju.application.entity.Leavebill;
+import com.tju.application.entity.User;
 
 @RestController
 public class LeaveController {
 
 	@Resource
 	private LeaveDao leaveDao;
-	
-	@RequestMapping("/user_leave")
+
+	/**
+	 * 查找请假numDay天的假期单
+	 * @param numDay
+	 * @return
+	 */
+	@RequestMapping("/userLeaveNum")
 	@ResponseBody
-	public List<Leavebill> findByNumDayLeave(@RequestParam(value="numDay", defaultValue="1")int numDay) {
-		
+	public List<Leavebill> findByNumDayLeave(@RequestParam(value = "numDay", defaultValue = "1") int numDay) {
+
 		List<Leavebill> leave = leaveDao.findByNumDay(numDay);
 
 		if (leave != null) {
@@ -31,10 +40,10 @@ public class LeaveController {
 		return leave;
 	}
 
-	@RequestMapping("/type")
+	@RequestMapping("/leaveType")
 	@ResponseBody
-	public List<Leavebill> findByType(@RequestParam(value="type", defaultValue="1")String type) {
-		
+	public List<Leavebill> findByType(@RequestParam(value = "type", defaultValue = "1") String type) {
+
 		List<Leavebill> leave = leaveDao.findByType(type);
 
 		if (leave != null) {
@@ -42,5 +51,45 @@ public class LeaveController {
 		}
 
 		return leave;
+	}
+
+	/**
+	 * 查找今天请假的所有人
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping("/leave/today")
+	@ResponseBody
+	public List<User> findUserByToday() throws ParseException {
+
+		Date today=new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String day=sdf.format(today);
+		List<User> users = leaveDao.findByToday(day);
+
+		if (users != null) {
+			return users;
+		}
+
+		return users;
+	}
+	
+	/**
+	 * 按日期查找请假的人
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping("/leave/date")
+	@ResponseBody
+	public List<User> findUserByDate(@RequestParam(value = "date", defaultValue = "") String date) {
+
+		String day=date;
+		List<User> users = leaveDao.findByToday(day);
+
+		if (users != null) {
+			return users;
+		}
+
+		return users;
 	}
 }
