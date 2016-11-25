@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2016-11-24 14:27:26
+Date: 2016-11-25 20:38:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,14 +38,14 @@ CREATE TABLE `department` (
 DROP TABLE IF EXISTS `leavebill`;
 CREATE TABLE `leavebill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `application_time` datetime DEFAULT NULL,
-  `leave_date` date DEFAULT NULL,
+  `application_time` varchar(255) DEFAULT NULL,
+  `leave_date` varchar(255) DEFAULT NULL,
   `num_of_days` int(11) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  `describe` varchar(255) DEFAULT NULL,
+  `describes` varchar(255) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of leavebill
@@ -55,7 +55,6 @@ INSERT INTO `leavebill` VALUES ('2', '2016-11-09 16:30:42', '2016-11-12', '1', '
 INSERT INTO `leavebill` VALUES ('3', '2016-11-22 16:31:02', '2016-11-24', '2', '1', 'qqqqqqq', '1');
 INSERT INTO `leavebill` VALUES ('4', '2016-11-02 16:31:21', '2016-11-08', '3', '1', 'wwwwwwww', '1');
 INSERT INTO `leavebill` VALUES ('5', '2016-11-18 16:31:43', '2016-11-29', '1', '1', 'rrrrrrrrr', '1');
-INSERT INTO `leavebill` VALUES ('6', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for user
@@ -101,15 +100,18 @@ CREATE TABLE `user_department` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_leave`;
 CREATE TABLE `user_leave` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `leave_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`leave_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_leave
 -- ----------------------------
-INSERT INTO `user_leave` VALUES ('1', '1');
-INSERT INTO `user_leave` VALUES ('1', '3');
-INSERT INTO `user_leave` VALUES ('1', '4');
-INSERT INTO `user_leave` VALUES ('2', '5');
+INSERT INTO `user_leave` VALUES ('1', '1', '1');
+INSERT INTO `user_leave` VALUES ('2', '1', '3');
+INSERT INTO `user_leave` VALUES ('3', '1', '4');
+INSERT INTO `user_leave` VALUES ('4', '2', '5');
+INSERT INTO `user_leave` VALUES ('5', '1', '2');
+INSERT INTO `user_leave` VALUES ('6', '1', '2');

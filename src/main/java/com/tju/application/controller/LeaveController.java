@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tju.application.dao.LeaveDao;
 import com.tju.application.entity.Leavebill;
 import com.tju.application.entity.User;
+import com.tju.application.entity.UserLeavebill;
 
 @RestController
 public class LeaveController {
@@ -24,6 +25,7 @@ public class LeaveController {
 
 	/**
 	 * 查找请假numDay天的假期单
+	 * 
 	 * @param numDay
 	 * @return
 	 */
@@ -55,6 +57,7 @@ public class LeaveController {
 
 	/**
 	 * 查找今天请假的所有人
+	 * 
 	 * @return
 	 * @throws ParseException
 	 */
@@ -62,9 +65,9 @@ public class LeaveController {
 	@ResponseBody
 	public List<User> findUserByToday() throws ParseException {
 
-		Date today=new Date();
+		Date today = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
-		String day=sdf.format(today);
+		String day = sdf.format(today);
 		List<User> users = leaveDao.findByToday(day);
 
 		if (users != null) {
@@ -73,9 +76,10 @@ public class LeaveController {
 
 		return users;
 	}
-	
+
 	/**
 	 * 按日期查找请假的人
+	 * 
 	 * @return
 	 * @throws ParseException
 	 */
@@ -83,7 +87,7 @@ public class LeaveController {
 	@ResponseBody
 	public List<User> findUserByDate(@RequestParam(value = "date", defaultValue = "") String date) {
 
-		String day=date;
+		String day = date;
 		List<User> users = leaveDao.findByToday(day);
 
 		if (users != null) {
@@ -91,5 +95,29 @@ public class LeaveController {
 		}
 
 		return users;
+	}
+
+	@RequestMapping("/leavebill/leavebill")
+	@ResponseBody
+	public int addLeaveBill(@RequestParam(value = "userId", defaultValue = "0") Long userId, String leaveDate,
+			@RequestParam(value = "numOfDays", defaultValue = "0")int numOfDays, String type, String describe) {
+
+		if (userId == 0) {
+			return 0;
+		}
+
+		int result = 0;
+
+		Date today = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd ");
+		String applicationTime = sdf.format(today);
+
+		Leavebill thisBill = leaveDao.save(new Leavebill(applicationTime, 
+				leaveDate, numOfDays, type, describe, "0"));
+		
+		leaveDao.save(new UserLeavebill(userId, thisBill.getId()));
+
+		result = 1;
+		return result;
 	}
 }

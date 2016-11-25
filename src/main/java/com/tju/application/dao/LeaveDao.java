@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.tju.application.entity.Leavebill;
 import com.tju.application.entity.User;
+import com.tju.application.entity.UserLeavebill;
 
 public interface LeaveDao extends CrudRepository<Leavebill, Long> {
 
@@ -21,5 +22,8 @@ public interface LeaveDao extends CrudRepository<Leavebill, Long> {
 			+ "FROM Leavebill l WHERE l.leaveDate = :day))")
 	List<User> findByToday(@Param("day")String day);
 	
+	void save(UserLeavebill ul);
 	
+	@SuppressWarnings("unchecked")
+	Leavebill save(Leavebill l);
 }

@@ -3,11 +3,59 @@
 <head>
 <meta charset="UTF-8" />
 <title>个人信息</title>
+
+<script>
+	function loadXMLDoc() {
+		
+		alert();
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			// IE6, IE5 浏览器执行代码
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 &amp;&amp; xmlhttp.status == 200) {
+				document.getElementById("infoDiv").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open("GET", "/user/info", true);
+		xmlhttp.send();
+	}
+	
+	function validatorloginName(){
+		alert("aaaaa");
+		 $.ajax({
+		 		type: "POST",    
+		         url: "/user/info",    
+		         data: "loginName=",
+		         dataType:"json",//返会值的类型
+		         success: function(data){
+		        	// alert(data)
+				   if(data){
+					   //alert("用户名不可用") 
+				    	 document.getElementById("infoDiv").innerHTML = "用户名可用";
+				    }else{   
+				    	//alert("用户名可用")
+				    	 document.getElementById("infoDiv").innerHTML = "用户名已被注册";
+			    	}  
+		  		}            
+		        });   
+		}		
+</script>
+
 </head>
 <body>
 	<a href="/index.html">主页</a>
 	<h3>姓名：</h3>
 	<h3>性别：</h3>
 	<h3>生日：</h3>
+
+	<div id="infoDiv">
+		<h2>个人信息</h2>
+	</div>
+	<button type="button" onclick="validatorloginName()">更新</button>
 </body>
 </html>

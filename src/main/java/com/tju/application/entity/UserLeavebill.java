@@ -2,44 +2,59 @@ package com.tju.application.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="user_leave")
+@Table(name = "user_leave")
 public class UserLeavebill {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
 	@Column(name = "user_id")
 	private Long userId;
-	
-	@Id
+
 	@Column(name = "leave_id")
 	private Long leaveId;
-	
-	protected UserLeavebill() {
+
+	public UserLeavebill() {
+		super();
 	}
 
-	public UserLeavebill(Long userid, Long leaveid) {
-		this.userId = userid;
-		this.leaveId = leaveid;
+	public UserLeavebill(Long userId, Long leaveId) {
+		super();
+		this.userId = userId;
+		this.leaveId = leaveId;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
-	public Long getUserid() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserid(Long userid) {
-		this.userId = userid;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Long getLeaveid() {
+	public Long getLeaveId() {
 		return leaveId;
 	}
 
-	public void setLeaveid(Long leaveid) {
-		this.leaveId = leaveid;
+	public void setLeaveId(Long leaveId) {
+		this.leaveId = leaveId;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "UserLeavebill [userid=" + userId + ", leaveid=" + leaveId + "]";
