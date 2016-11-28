@@ -28,12 +28,12 @@ public class OutController {
 	 */
 	@RequestMapping("/outbill/today")
 	@ResponseBody
-	public List<User> findUserByToday() throws ParseException {
+	public List<User> findUserByToday(@RequestParam(value="department_id") Long department_id) throws ParseException {
 
 		Date today=new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String day=sdf.format(today);
-		List<User> users = outDao.findOutByToday(day);
+		List<User> users = outDao.findOutByTodayByDepartment(day, 1, department_id);
 
 		if (users != null) {
 			return users;
@@ -47,11 +47,11 @@ public class OutController {
 	 * @return
 	 * @throws ParseException
 	 * */
-	@RequestMapping("/outbill/date")
+	@RequestMapping("/outbill/day")
 	@ResponseBody
-	public List<User> findUserByDate(@RequestParam(value = "date",defaultValue = "") String date){
-		String day = date;
-		List<User> users = outDao.findOutByToday(day);
+	public List<User> findUserByDate(@RequestParam(value = "day",defaultValue = "") String day,@RequestParam(value = "department_id",defaultValue = "") Long department_id){
+		
+		List<User> users = outDao.findOutByTodayByDepartment(day, 1, department_id);
 		
 		if(users!=null){
 			return users;
@@ -65,10 +65,10 @@ public class OutController {
 	 * */
 	@RequestMapping("/outbill/untreated")
 	@ResponseBody
-	public List<Outbill> findUserByStatus(){
+	public List<Outbill> findUserByState(@RequestParam(value = "department_id", defaultValue = "") Long department_id){
 		
-		int status = 0;
-		List<Outbill> outbills = outDao.findApByStatus(status);
+		int state = 0;
+		List<Outbill> outbills = outDao.findApByState(state,department_id);
 		
 		if(outbills!=null){
 			return outbills;
@@ -78,9 +78,28 @@ public class OutController {
 	}
 	
 	/*
-	 * 处理申请
+	 * 提交申请
 	 * */
-	public void setApState(@RequestParam(value = "state",defaultValue = "") int state){
-		
+	
+	/*
+	 * 同意申请
+	 * */
+	@RequestMapping("/outbill/agree")
+	@ResponseBody
+	public void agreeAp(@RequestParam(value = "outbill_id",defaultValue = "") Long outbill_id){
+		Long id = outbill_id;
+		int state = 1;
+		outDao.setApStateById(id, state);
+	}
+	
+	/*
+	 * 拒绝申请
+	 * */
+	@RequestMapping("/outbill/refuse")
+	@ResponseBody
+	public void refuseAp(@RequestParam(value = "outbill_id",defaultValue = "") Long outbill_id){
+		Long id = outbill_id;
+		int state = -1;
+		outDao.setApStateById(id, state);
 	}
 }
